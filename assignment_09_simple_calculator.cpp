@@ -72,4 +72,95 @@
 #include <iomanip>
 #include <cmath>
 using namespace std;
+double add(double a, double b) {
+    return a + b;
+}
+double subtract(double a, double b) {
+    return a - b;
+}
+double multiply(double a, double b) {
+    return a * b;
+}
+double divide(double a, double b) {
+    if (b == 0) {
+        throw invalid_argument("Error: Cannot divide by zero.");
+    }
+    return a / b;
+}
+double calculateModulus(double a, double b) {
+    if (b == 0) {
+        throw invalid_argument("Error: Cannot calculate modulus with zero.");
+    }
+    return fmod(a, b);
+}
+double power(double a, double b) {
+    return pow(a, b);
+}  
+void displayMenu() {
+    cout << "============================" << endl;
+    cout << "      SIMPLE CALCULATOR" << endl;
+    cout << "============================" << endl;
+    cout << "1. Addition" << endl;
+    cout << "2. Subtraction" << endl;
+    cout << "3. Multiplication" << endl;
+    cout << "4. Division" << endl;
+    cout << "5. Modulus" << endl;
+    cout << "6. Exponentiation" << endl;
+    cout << "7. Quit" << endl;
+    cout << "Select an operation (1-7): ";
+}
+int main() {
+    int choice;
+    double num1, num2, result;
 
+    do {
+        displayMenu();
+        cin >> choice;
+
+        if (choice >= 1 && choice <= 6) {
+            cout << "Enter first number : ";
+            cin >> num1;
+            cout << "Enter second number: ";
+            cin >> num2;
+        }
+
+        try {
+            switch (choice) {
+                case 1:
+                    result = add(num1, num2);
+                    cout << fixed << setprecision(2) << "Result: " << num1 << " + " << num2 << " = " << result << endl;
+                    break;
+                case 2:
+                    result = subtract(num1, num2);
+                    cout << fixed << setprecision(2) << "Result: " << num1 << " - " << num2 << " = " << result << endl;
+                    break;
+                case 3:
+                    result = multiply(num1, num2);
+                    cout << fixed << setprecision(2) << "Result: " << num1 << " * " << num2 << " = " << result << endl;
+                    break;
+                case 4:
+                    result = divide(num1, num2);
+                    cout << fixed << setprecision(2) << "Result: " << num1 << " / " << num2 << " = " << result << endl;
+                    break;
+                case 5:
+                    result = calculateModulus(num1, num2);
+                    cout << fixed << setprecision(2) << "Result: " << num1 << " % " << num2 << " = " << result << endl;
+                    break;
+                case 6:
+                    result = power(num1, num2);
+                    cout << fixed << setprecision(2) << "Result: " << num1 << " ^ " << num2 << " = " << result << endl;
+                    break;
+                case 7:
+                    cout << "Goodbye!" << endl;
+                    break;
+                default:
+                    cout << "Error: Invalid choice. Please select a number between 1 and 7." << endl;
+            }
+        } catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+        }
+
+    } while (choice != 7);
+
+    return 0;
+}
